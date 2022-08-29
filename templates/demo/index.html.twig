@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Demo page numéro {{ page }}</h1>
+
+    <ul>
+        <li><a href="{{ path('demo_show', { title: 'A' }) }}">A</a></li>
+        <li><a href="{{ path('demo_show', { title: 'B' }) }}">B</a></li>
+        <li><a href="/demo/C">C</a></li>
+
+        {% for letter in letters %}
+            <li>
+                <a href="{{ path('demo_show', { title: letter }) }}">
+                    {{ letter }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
