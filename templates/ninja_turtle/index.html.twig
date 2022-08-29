@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Les Tortues Ninja</h1>
+
+    {% for turtle in turtles %}
+        <div>
+            <a href="{{ path('app_ninja_turtle_show', { color: turtle.color }) }}">{{ turtle.name }}</a>
+            <span style="color: {{ turtle.color }}">
+                {% for i in 1..turtle.size %}={% endfor %}
+            </span>
+        </div>
+    {% endfor %}
+{% endblock %}
