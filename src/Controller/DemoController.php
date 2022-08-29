@@ -30,7 +30,7 @@ class DemoController extends AbstractController
     #[Route(
         '/demo/{title}',
         name: 'demo_show',
-        requirements: ['page' => '[A-Za-z-]+']
+        requirements: ['title' => '[A-Za-z-]+']
     )]
     public function show($title): Response
     {

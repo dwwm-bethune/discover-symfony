@@ -18,4 +18,16 @@ class WelcomeController extends AbstractController
             'name' => $name,
         ]);
     }
+
+    #[Route(
+        '/hello/{name}',
+        name: 'hello_show',
+        requirements: ['name' => '[a-z]{3,8}']
+    )]
+    public function show($name)
+    {
+        return $this->render('welcome/index.html.twig', [
+            'name' => ucfirst($name),
+        ]);
+    }
 }
