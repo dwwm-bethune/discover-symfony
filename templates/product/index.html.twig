@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <form method="get">
+        <input type="text" name="price" id="price" placeholder="Prix minimum...">
+
+        <button>Filtrer</button>
+    </form>
+
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Slug</th>
+            <th>Description</th>
+            <th>Price</th>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        <a href="{{ path('app_product_show', { slug: product.slug }) }}">
+                            {{ product.name }}
+                        </a>
+                    </td>
+                    <td>{{ product.slug }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }} €</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if page > 1 %}
+    <a href="{{ path('app_product', { page: page - 1 }) }}">Page précédente</a>
+    {% endif %}
+
+    {% if page < total %}
+    <a href="{{ path('app_product', { page: page + 1 }) }}">Page suivante</a>
+    {% endif %}
+{% endblock %}
