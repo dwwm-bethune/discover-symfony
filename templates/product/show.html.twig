@@ -12,6 +12,6 @@
     </div>
 
     <div class="text-center">
-        <a href="#" class="btn btn-info">Commander le produit</a>
+        <a href="{{ path('app_order', { slug: product.slug }) }}" class="btn btn-info">Commander le produit</a>
     </div>
 {% endblock %}

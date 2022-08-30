@@ -85,4 +85,22 @@ class ProductController extends AbstractController
     {
         return $this->json($this->products);
     }
+
+    #[Route('/order/{slug}', name: 'app_order')]
+    public function order($slug)
+    {
+        $product = array_values(array_filter($this->products, function ($product) use ($slug) {
+            return $product['slug'] === $slug;
+        }))[0] ?? null;
+
+        if (! $product) {
+            throw $this->createNotFoundException();
+        }
+
+        $this->addFlash('success',
+            'Nous avons bien pris en compte votre commande '.$product['name'].' de '.$product['price'].' €'
+        );
+
+        return $this->redirectToRoute('app_product');
+    }
 }

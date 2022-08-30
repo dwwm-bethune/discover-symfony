@@ -59,6 +59,14 @@
         </nav>
 
         <div class="container mt-5 mb-5">
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="messages alert alert-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
             {% block body %}{% endblock %}
         </div>
 
