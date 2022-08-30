@@ -3,9 +3,22 @@
 {% block body %}
     <h1>Les Tortues Ninja</h1>
 
+    <form method="get">
+        <select name="size" id="size">
+            <option value="">Tout</option>
+            {% for i in 2..4 %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <button>Filtrer</button>
+    </form>
+
     {% for turtle in turtles %}
         <div>
-            <a href="{{ path('app_ninja_turtle_show', { color: turtle.color }) }}">{{ turtle.name }}</a>
+            <a href="{{ path('app_ninja_turtle_show', { color: turtle.color }) }}">
+                {{ turtle.name }}
+            </a>
             <span style="color: {{ turtle.color }}">
                 {% for i in 1..turtle.size %}={% endfor %}
             </span>
