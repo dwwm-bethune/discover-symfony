@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %} Les tortues - {{ parent() }} {% endblock %}
+
 {% block body %}
     <h1>Les Tortues Ninja</h1>
 
@@ -7,7 +9,7 @@
         <select name="size" id="size">
             <option value="">Tout</option>
             {% for i in 2..4 %}
-                <option value="{{ i }}">{{ i }}</option>
+                <option {{ app.request.get('size') == i ? 'selected' }} value="{{ i }}">{{ i }}</option>
             {% endfor %}
         </select>
 
