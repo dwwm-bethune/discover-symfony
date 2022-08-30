@@ -1,6 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ product.name }}</h1>
-    <p>{{ product.price }} €</p>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <h1>{{ product.name }}</h1>
+            <h3>{{ product.price }} €</h3>
+        </div>
+        <div class="col-md-6">
+            <p>{{ product.description }}</p>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="#" class="btn btn-info">Commander le produit</a>
+    </div>
 {% endblock %}
