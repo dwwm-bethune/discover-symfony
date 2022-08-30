@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    @todo
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button class="btn btn-primary" formnovalidate>
+            Ajouter
+        </button>
+    {{ form_end(form) }}
 {% endblock %}

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Form\ProductType;
+use App\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,9 +61,25 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/create', name: 'app_product_create')]
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        return $this->render('product/create.html.twig');
+        $product = new Product();
+        dump($product);
+
+        $form = $this->createForm(ProductType::class, $product);
+
+        // Ne pas oublier de faire le lien entre la
+        // request et le form
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dump($product);
+            // Envoi un mail, ajout dans la BDD...
+        }
+
+        return $this->render('product/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/product/{slug}', name: 'app_product_show')]
