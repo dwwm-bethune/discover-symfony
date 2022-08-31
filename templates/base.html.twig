@@ -52,6 +52,9 @@
                         <li class="nav-item {{ app.request.get('_route') == 'app_product' ? 'active' }}">
                             <a class="nav-link" href="{{ path('app_product') }}">Les produits</a>
                         </li>
+                        <li class="nav-item {{ app.request.get('_route') == 'app_phone' ? 'active' }}">
+                            <a class="nav-link" href="{{ path('app_phone') }}">Les produits (BDD)</a>
+                        </li>
                         {% endblock %}
                     </ul>
                 </div>
