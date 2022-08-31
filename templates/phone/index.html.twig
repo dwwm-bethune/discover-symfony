@@ -1,9 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% for product in products %}
-        <a href="{{ path('app_phone_show', { id: product.id }) }}">
-            {{ product.name }}
-        </a>
-    {% endfor %}
+    <a class="btn btn-secondary mb-5" href="{{ path('app_phone_new') }}">Créer un produit</a>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ product.name }}</h2>
+                        <a class="btn btn-primary" href="{{ path('app_phone_show', { id: product.id }) }}">
+                            Voir
+                        </a>
+                        <a class="btn btn-warning" href="{{ path('app_phone_edit', { id: product.id }) }}">Modifier</a>
+                        <a class="btn btn-danger" href="{{ path('app_phone_delete', { id: product.id }) }}">X</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

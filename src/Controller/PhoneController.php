@@ -60,4 +60,33 @@ class PhoneController extends AbstractController
             'product' => $product,
         ]);
     }
+
+    #[Route('/phone/{id}/edit', name: 'app_phone_edit')]
+    public function update(Product $product, Request $request, EntityManagerInterface $manager)
+    {
+        $form = $this->createForm(PhoneType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            $this->addFlash('success', $product->getName().' a été modifié.');
+
+            return $this->redirectToRoute('app_phone');
+        }
+
+        return $this->render('phone/update.html.twig', [
+            'form' => $form->createView(),
+            'product' => $product,
+        ]);
+    }
+
+    #[Route('/phone/{id}/delete', name: 'app_phone_delete')]
+    public function delete(Product $product, EntityManagerInterface $manager)
+    {
+        $manager->remove($product);
+        $manager->flush();
+
+        return $this->redirectToRoute('app_phone');
+    }
 }
