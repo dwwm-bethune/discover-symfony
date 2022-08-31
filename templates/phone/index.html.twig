@@ -8,7 +8,12 @@
             <div class="col-lg-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">{{ product.name }}</h2>
+                        <h2 class="card-title">
+                            {{ product.name }}
+                            {% if product.category %}
+                                ({{ product.category.name }})
+                            {% endif %}
+                        </h2>
                         <a class="btn btn-primary" href="{{ path('app_phone_show', { id: product.id }) }}">
                             Voir
                         </a>
