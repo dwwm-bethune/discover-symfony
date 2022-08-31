@@ -13,7 +13,11 @@
                             Voir
                         </a>
                         <a class="btn btn-warning" href="{{ path('app_phone_edit', { id: product.id }) }}">Modifier</a>
-                        <a class="btn btn-danger" href="{{ path('app_phone_delete', { id: product.id }) }}">X</a>
+
+                        <form class="d-inline" action="{{ path('app_phone_delete', { id: product.id }) }}" method="post">
+                            <input type="hidden" name="csrf" value="{{ csrf_token('delete-product') }}">
+                            <button class="btn btn-danger">X</button>
+                        </form>
                     </div>
                 </div>
             </div>

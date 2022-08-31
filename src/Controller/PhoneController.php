@@ -82,10 +82,12 @@ class PhoneController extends AbstractController
     }
 
     #[Route('/phone/{id}/delete', name: 'app_phone_delete')]
-    public function delete(Product $product, EntityManagerInterface $manager)
+    public function delete(Request $request, Product $product, EntityManagerInterface $manager)
     {
-        $manager->remove($product);
-        $manager->flush();
+        if ($this->isCsrfTokenValid('delete-product', $request->get('csrf'))) {
+            $manager->remove($product);
+            $manager->flush();
+        }
 
         return $this->redirectToRoute('app_phone');
     }
