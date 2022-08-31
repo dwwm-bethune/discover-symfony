@@ -48,13 +48,13 @@ class PhoneController extends AbstractController
     }
 
     #[Route('/phone/{id}', name: 'app_phone_show')]
-    public function show(ProductRepository $repository, $id)
+    public function show(ProductRepository $repository, Product $product)
     {
-        $product = $repository->find($id);
+        // $product = $repository->find($id);
 
-        if (! $product) {
-            throw $this->createNotFoundException();
-        }
+        // if (! $product) {
+        //     throw $this->createNotFoundException();
+        // }
 
         return $this->render('phone/show.html.twig', [
             'product' => $product,
