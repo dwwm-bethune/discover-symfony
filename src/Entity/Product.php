@@ -27,7 +27,7 @@ class Product
     #[Assert\NotBlank, Assert\Positive]
     private ?int $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\ManyToOne(inversedBy: 'products', fetch: 'EAGER')]
     private ?Category $category = null;
 
     public function getId(): ?int
