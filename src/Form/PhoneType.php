@@ -24,6 +24,10 @@ class PhoneType extends AbstractType
                 'placeholder' => 'Choisir une catégorie...',
                 // 'required' => true,
             ])
+            ->add('tags', null, [
+                'choice_label' => 'name',
+                'expanded' => true,
+            ])
         ;
     }
 

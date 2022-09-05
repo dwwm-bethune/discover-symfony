@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -14,12 +15,19 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr_FR');
         $types = ['Smartphone', 'Tablette', 'PC portable', 'PC bureau', 'Ecran'];
-
         foreach ($types as $key => $type) {
             $category = new Category();
             $category->setName($type);
             $manager->persist($category);
             $this->addReference('category-'.($key + 1), $category);
+        }
+
+        $keywords = ['Gaming', 'Perso', 'Pro', 'Bureau', 'Internet', 'RVB'];
+        foreach ($keywords as $key => $keyword) {
+            $tag = new Tag();
+            $tag->setName($keyword);
+            $manager->persist($tag);
+            $this->addReference('tag-'.($key + 1), $tag);
         }
 
         // Créer une entité Tag avec un name...
@@ -35,6 +43,10 @@ class AppFixtures extends Fixture
             $product->setDescription($faker->text());
             $product->setPrice($faker->numberBetween(100, 2000) * 100);
             $product->setCategory($this->getReference('category-'.rand(1, 5)));
+            // Ajoute entre 1 et 3 tags aléatoires pour chaque produit...
+            foreach (range(1, rand(1, 3)) as $ref) {
+                $product->addTag($this->getReference('tag-'.rand(1, 6)));
+            }
             $manager->persist($product);
         }
 
