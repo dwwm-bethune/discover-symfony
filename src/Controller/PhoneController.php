@@ -7,6 +7,7 @@ use App\Form\PhoneType;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,7 @@ class PhoneController extends AbstractController
     }
 
     #[Route('/phone/create', name: 'app_phone_new')]
+    #[IsGranted('ROLE_USER')]
     public function create(Request $request, ManagerRegistry $doctrine, EntityManagerInterface $manager)
     {
         $product = new Product();
@@ -62,6 +64,7 @@ class PhoneController extends AbstractController
     }
 
     #[Route('/phone/{id}/edit', name: 'app_phone_edit')]
+    #[IsGranted('edit', 'product')]
     public function update(Product $product, Request $request, EntityManagerInterface $manager)
     {
         $form = $this->createForm(PhoneType::class, $product);
@@ -84,6 +87,8 @@ class PhoneController extends AbstractController
     #[Route('/phone/{id}/delete', name: 'app_phone_delete')]
     public function delete(Request $request, Product $product, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('delete', $product);
+
         if ($this->isCsrfTokenValid('delete-product', $request->get('csrf'))) {
             $manager->remove($product);
             $manager->flush();

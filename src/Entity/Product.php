@@ -35,6 +35,9 @@ class Product
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'products')]
     private Collection $tags;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?User $owner = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -113,6 +116,18 @@ class Product
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }

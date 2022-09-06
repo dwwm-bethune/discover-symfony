@@ -30,12 +30,14 @@ class AppFixtures extends Fixture
         $user->setRoles(['ROLE_ADMIN']);
         $user->setIsVerified(true);
         $manager->persist($user);
+        $this->addReference('user-1', $user);
 
         $user = new User();
         $user->setEmail('fiorella@boxydev.com');
         $user->setPassword($this->hasher->hashPassword($user, 'password'));
         $user->setIsVerified(true);
         $manager->persist($user);
+        $this->addReference('user-2', $user);
 
         $types = ['Smartphone', 'Tablette', 'PC portable', 'PC bureau', 'Ecran'];
         foreach ($types as $key => $type) {
@@ -70,6 +72,7 @@ class AppFixtures extends Fixture
             foreach (range(1, rand(1, 3)) as $ref) {
                 $product->addTag($this->getReference('tag-'.rand(1, 6)));
             }
+            $product->setOwner($this->getReference('user-'.rand(1, 2)));
             $manager->persist($product);
         }
 
