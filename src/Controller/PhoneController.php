@@ -35,6 +35,9 @@ class PhoneController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // On associe le produit à l'utilisateur connecté
+            $product->setOwner($this->getUser());
+
             // $manager = $doctrine->getManager();
             $manager->persist($product);
             $manager->flush();
