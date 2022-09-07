@@ -23,7 +23,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{page}', name: 'app_product', requirements: ['page' => '\d+'])]
-    public function index(Request $request, $page = 1): Response
+    public function index(Request $request = null, $page = 1): Response
     {
         $products = array_filter($this->products, function ($product) use ($request) {
             if (! $price = $request->get('price')) {
